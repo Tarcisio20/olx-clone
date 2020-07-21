@@ -58,6 +58,7 @@ nav {
             color:#000;
             font-size:14px;
             text-decoration:none;
+            outline:0;
 
             &:hover{
                 color: #999;
