@@ -1,11 +1,40 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { PageArea, SearchArea } from './styled.js'
+import useApi from '../../Helpers/OlxAPI'
+
+
+import { PageContainer } from '../../Components/mainComponents'
 
 const Page = () => {
+    const api = useApi()
+    // STATES
+    
+    
+    // FUNÇÕES
+
+
+    // RETORNO
     return (
         <>
-            <div>Página Inical</div>
-            <Link to="/about">Sobre</Link>
+        <SearchArea>
+            <PageContainer>
+                <div className="searchBox" >
+                    <form method="GET" action="/ads" >
+                        <input type="text" name="q" placeholder="O qur você procura?" />
+                        <select name="state" >
+                            <option></option>
+                        </select>
+                        <button>Pesquisar</button>
+                    </form>
+                </div>
+                <div className="categoryList" ></div>
+            </PageContainer>
+        </SearchArea> 
+        <PageContainer>
+            <PageArea>
+               ...
+            </PageArea>
+        </PageContainer>
         </>
     )
 }
