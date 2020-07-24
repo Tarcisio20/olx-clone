@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { PageArea, SearchArea } from './styled.js'
 import useApi from '../../Helpers/OlxAPI'
 
-
+import  AdItem  from '../../Components/Partials/AdItem'
 import { PageContainer } from '../../Components/mainComponents'
 
 const Page = () => {
@@ -11,7 +11,8 @@ const Page = () => {
     
     const [stateList, setStateList] = useState([])
     const [categories, setCategories] = useState([])
-
+    const [adList, setAdList] = useState([])
+    
     useEffect(()=>{
         const getStates = async () => {
             const slist = await api.getStates()
@@ -26,6 +27,17 @@ const Page = () => {
             setCategories(slist)
         }
         getCategories()
+    }, [])
+
+    useEffect(()=>{
+        const getRecentAds = async () => {
+            const json = await api.getAds({
+                sort:'desc',
+                limit:8
+            })
+            setAdList(json.ads)
+        }
+        getRecentAds()
     }, [])
 
     // RETORNO
@@ -56,7 +68,17 @@ const Page = () => {
         </SearchArea> 
         <PageContainer>
             <PageArea>
-               ...
+                <h2>Anúncios Recentes</h2> 
+                <div className="list">
+                    {adList.map((i, k)=> <AdItem key={k} data={i} />
+                    )}
+                </div>
+                <Link to="/ads" className="seeAllLink">Ver Todos</Link>
+                <hr/>
+                Lorem Ipsum is simply dummy text of the printin and typesetty, Lorem Ipsum is simply dummy text of the printin and typesetty
+                Lorem Ipsum is simply dummy text of the printin and typesetty,Lorem Ipsum is simply dummy text of the printin and typesetty
+                Lorem Ipsum is simply dummy text of the printin and typesetty
+            
             </PageArea>
         </PageContainer>
         </>
