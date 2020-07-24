@@ -76,5 +76,22 @@ padding: 20px 0;
 
 `
 export  const PageArea = styled.div`
+h2 {
+    font-size:20px;
+}
+
+.list {
+    disply:flex;
+    flex-wrap:wrap;
+}
+
+.seeAllLink {
+    color:#000;
+    text-decoration:none;
+    font-weight:bold;
+    display:inline-block;
+    margin-top:20px;
+}
+
 
 `
