@@ -83,6 +83,10 @@ h2 {
 .list {
     disply:flex;
     flex-wrap:wrap;
+
+    .aditem {
+        width:25%;
+    }
 }
 
 .seeAllLink {
