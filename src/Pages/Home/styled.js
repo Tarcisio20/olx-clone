@@ -81,7 +81,7 @@ h2 {
 }
 
 .list {
-    disply:flex;
+    display:flex;
     flex-wrap:wrap;
 
     .aditem {
