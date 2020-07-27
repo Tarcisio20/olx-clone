@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { Slide } from 'react-slideshow-image'
 import { PageArea, Fake } from './styled.js'
 import useApi from '../../Helpers/OlxAPI'
 
@@ -39,7 +40,17 @@ const Page = () => {
             <PageArea>
                 <div className="leftSide">
                     <div className="box">
-                        <div className="adImage"><Fake height={300} /></div>
+                        <div className="adImage"><Fake height={300} />
+                        {adInfo.images && 
+                            <Slide>
+                                {adInfo.images.map((img, k)=>(
+                                    <div key={k} className="each-slide" >
+                                        <img src={img} alt="" />
+                                    </div>
+                                ))}
+                            </Slide>
+                        }
+                        </div>
                         <div className="adInfo">
                             <div className="adName">{loading && <Fake height={20} />}
                             {adInfo.title && 
