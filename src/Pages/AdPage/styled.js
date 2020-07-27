@@ -86,13 +86,13 @@ margin-top:20px;
         align-items:center;
         justify-content:center;
         text-decoration:none;
-        margin-bottom:20px;
+        margin-bottom:20px; 
     }
     
     .createdBy strong {
         display:block;
     }
-    
+
     .createdBy small {
         display:block;
         color:#999;

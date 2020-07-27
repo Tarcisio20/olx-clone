@@ -77,7 +77,7 @@ const Page = () => {
                         <div className="price">Preço: <span>R$ {adInfo.price}</span></div>
                     }
                     </div>
-                    {loading && <Fake height={50} /> }
+                    {loading && <Fake height={50}  /> }
                     {adInfo.userInfo &&
                     <>
                         <a href={`mailto:${adInfo.userInfo.email}`} target="_blank" clasName="contactSellLink">Fale com o vendedor</a>
