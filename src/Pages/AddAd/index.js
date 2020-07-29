@@ -1,7 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState,useEffect, useRef } from 'react'
+import MaskedInput from 'react-text-mask'
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 import { PageArea } from './styled.js'
 import useApi from '../../Helpers/OlxAPI'
-import { doLogin } from '../../Helpers/AuthHandler'
+
 
 import { PageContainer, PageTitle, ErrorMessage } from '../../Components/mainComponents'
 
@@ -10,6 +12,7 @@ const Page = () => {
 
     const fileField = useRef()
     // STATES
+    const [categories, setCategories] = useState([])
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState('')
     const [price, setPrice] = useState('')
@@ -20,6 +23,15 @@ const Page = () => {
     const [error, setError] = useState('')
     
     // FUNÇÕES
+    useEffect(()=>{
+        const getCategories = async () => {
+            const cats = await api.getCategories()
+            setCategories(cats)
+        } 
+        getCategories()
+    },[])
+
+
    /* const handlerSubmit = async e => {
         e.preventDefault()
         setDisabled(true)
@@ -37,6 +49,13 @@ const Page = () => {
         setDisabled(false)
     }*/
 
+    const priceMask = createNumberMask({
+        prefix:'R$ ',
+        includeThousandsSeparator:true,
+        thousandsSeparatorSymbol:'.',
+        allowDecimal:true,
+        decimalSymbol:','
+    })
 
     // RETORNO
     return (
@@ -58,8 +77,11 @@ const Page = () => {
                     <label className="area">
                         <div className="area--title">Categoria</div>
                         <div className="area--input">
-                           <select >
-                               <option></option>
+                           <select disabled={disabled} onChange={e=>setCategories(e.target.value)} required >
+                            <option></option>
+                            {categories && categories.map(i=>(
+                                <option key={i._id} value={i._id} >{i.name}</option>
+                            ))}
                            </select>
                         </div>
                     </label>
@@ -67,7 +89,7 @@ const Page = () => {
                     <label className="area">
                         <div className="area--title">Preço</div>
                         <div className="area--input">
-                           
+                        <MaskedInput mask={priceMask} placeholder="R$ " disabled={disabled || priceNegotiable} value={price} onChange={e=>setPrice(e.target.value)} />
                         </div>
                     </label>
 
