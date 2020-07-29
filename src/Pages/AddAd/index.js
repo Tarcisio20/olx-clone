@@ -1,9 +1,9 @@
 import React, { useState,useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 import MaskedInput from 'react-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 import { PageArea } from './styled.js'
 import useApi from '../../Helpers/OlxAPI'
-
 
 import { PageContainer, PageTitle, ErrorMessage } from '../../Components/mainComponents'
 
@@ -11,6 +11,7 @@ const Page = () => {
     const api = useApi()
 
     const fileField = useRef()
+    const history = useHistory()
     // STATES
     const [categories, setCategories] = useState([])
     const [title, setTitle] = useState('')
@@ -32,22 +33,49 @@ const Page = () => {
     },[])
 
 
-   /* const handlerSubmit = async e => {
+    const handlerSubmit = async e => {
         e.preventDefault()
         setDisabled(true)
         setError('')
 
-        const json = await api.login(email, password)
+        let erros = []
+        if( !title.trim() ){
+            erros.push('Sem titulo')
+        }
+        if( !category ) {
+            erros.push('Sem categoria')
+        }
+        if( erros.length === 0 ){
+            const fData = new FormData()
+            fData.append('title', title)
+            fData.append('price', price)
+            fData.append('priceneg', priceNegotiable)
+            fData.append('desc', desc)
+            fData.append('cat', category)
 
-        if(json.error){
-            setError(json.error)
-        }else{
-            doLogin(json.token, rememberPassword)
-            window.location.href = '/'
+            if( fileField.current.files.length > 0 ){
+                for(let i=0; i<fileField.current.files.length; i++){
+                    fData.append('img', fileField.current.files[i])
+                }
+            }
+
+           const json = await api.addAd(fData) 
+
+           if(!json.error){
+               history.push(`/ad/${json.id}`)
+               return
+           }else{
+               setError(json.error)
+           }
+
+
+        }else {
+            setError(erros.join("\n"))
         }
 
         setDisabled(false)
-    }*/
+       
+    }
 
     const priceMask = createNumberMask({
         prefix:'R$ ',
@@ -66,7 +94,7 @@ const Page = () => {
                 <ErrorMessage>{error}</ErrorMessage>
                 }
 
-                <form onSubmit={/*handlerSubmit*/}>
+                <form onSubmit={handlerSubmit}>
                     <label className="area">
                         <div className="area--title">Titulo</div>
                         <div className="area--input">
