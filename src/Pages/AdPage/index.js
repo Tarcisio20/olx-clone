@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { Slide } from 'react-slideshow-image'
-import { PageArea, Fake } from './styled.js'
+import { PageArea, Fake, OthersArea, BreadChumb } from './styled.js'
 import useApi from '../../Helpers/OlxAPI'
 
 import { PageContainer  } from '../../Components/mainComponents'
+import  AdItem  from './../../Components/Partials/AdItem'
 
 const Page = () => {
     const api = useApi()
@@ -37,6 +38,18 @@ const Page = () => {
     // RETORNO
     return (
         <PageContainer>
+            {adInfo.category && 
+                <BreadChumb>
+                    Você está aqui:
+                    <Link to="/">Home</Link>
+                    /
+                    <Link to={`/ads?state=${adInfo.name}`}>{adInfo.stateName}</Link>
+                    /
+                    <Link to={`/ads?state=${adInfo.name}&cat=${adInfo.category.slug}`}>{adInfo.category.name}</Link>
+                    /
+                    <Link to="">{adInfo.title}</Link>
+                </BreadChumb>
+            }
             <PageArea>
                 <div className="leftSide">
                     <div className="box">
@@ -89,7 +102,22 @@ const Page = () => {
                     </>
                     }
                 </div>
+
+              
             </PageArea>
+
+            <OthersArea>
+                {adInfo.others && 
+                        <>
+                        <h2>Outras orfertas do vendendor</h2>
+                        <div className="list">
+                            {adInfo.others.map((i, k)=>(
+                                <AdItem key={k} data={i} />
+                            ))}
+                        </div>
+                        </>
+                    }
+            </OthersArea>
         </PageContainer>
     )
 }
