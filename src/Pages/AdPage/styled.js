@@ -29,7 +29,7 @@ margin-top:20px;
     }
 
     .adImage {
-        widht:320px;
+        width:320px;
         height:320px;
         margin-right:20px;
 
@@ -98,5 +98,31 @@ margin-top:20px;
         color:#999;
         margin-top:10px;
     }
+}
+`
+
+export const OthersArea = styled.div`
+h2 {
+    font-size:20px;
+}
+
+.list {
+    display:flex;
+
+    .aditem {
+        width:25%;
+    }
+}
+`
+
+export const BreadChumb = styled.div`
+font-size:13px;
+margin-top:20px;
+
+a {
+    display: inline-block;
+    margin: 0 5px;
+    text-decoration:underline;
+    color:#000;
 }
 `
