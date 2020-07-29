@@ -8,6 +8,7 @@ import About from './Pages/About'
 import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
 import AdPage from './Pages/AdPage'
+import AddAd from './Pages/AddAd'
 import NotFound from './Pages/NotFound'
 
 export default () => {
@@ -18,7 +19,7 @@ export default () => {
             <RouteHandler exact path="/signin"><SignIn /></RouteHandler>
             <RouteHandler exact path="/signup"><SignUp /></RouteHandler>
             <RouteHandler exact path="/ad/:id"><AdPage /></RouteHandler>
-            <RouteHandler private exact path="/post-an-ad"><About /></RouteHandler>
+            <RouteHandler private exact path="/post-an-ad"><AddAd /></RouteHandler>
             <RouteHandler><NotFound /></RouteHandler>
         </Switch>
     )
